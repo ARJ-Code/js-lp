@@ -6,6 +6,39 @@
 \usepackage[text={18cm,21cm},centering]{geometry}
 \usepackage{hyperref} \hypersetup{ colorlinks=true, linkcolor=blue, filecolor=magenta,
 urlcolor=blue, }
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Definir colores adicionales si es necesario
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{lightgray}{rgb}{0.9, 0.9, 0.9}
+\definecolor{green}{rgb}{0, 0.5, 0}
+\definecolor{blue}{rgb}{0, 0, 1}
+\definecolor{red}{rgb}{1, 0, 0}
+
+
+\lstdefinelanguage{JavaScript}{
+  keywords={break, case, catch, continue, debugger, default, delete, do, else, false, finally, for, function, if, in, instanceof, new, null, return, switch, this, throw, true, try, typeof, var, void, while, with, let, const, export, import, class, extends, super, console},
+  sensitive=true,
+  comment=[l]//,
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{ 
+  language=JavaScript,        % El lenguaje de programación
+  basicstyle=\ttfamily\footnotesize, % El estilo básico para el código
+  keywordstyle=\color{blue},  % Color para las palabras clave
+  stringstyle=\color{red},    % Color para las cadenas de texto
+  commentstyle=\color{green}, % Color para los comentarios
+  backgroundcolor=\color{lightgray!20}, % Color de fondo
+  frame=single,               % Añade un marco alrededor del código
+  numbers=left,               % Añade números de línea a la izquierda
+  numberstyle=\tiny\color{gray}, % Estilo de los números de línea
+  breaklines=true,            % Permite el salto de línea automático
+  showstringspaces=false      % No muestra los espacios en las cadenas
+}
 
 \begin{document}
 
@@ -16,7 +49,7 @@ urlcolor=blue, }
     \vspace{1cm}
     {\scshape\Large Facultad de Matemática y Computación \par}
     \vspace{3cm}
-    {\scshape\Huge Lenguajes de Programación\\ Seminario 4 (Javascript) \par}
+    {\scshape\Huge Lenguajes de Programación\\ Seminario 4 (JavaScript) \par}
     \vfill
 
     {\Large Juan Carlos Espinoza Delgado C-411 \par}
@@ -172,10 +205,335 @@ del desarrollo y la mantenibilidad del código.
           \end{itemize}
 \end{enumerate}
 
-TypeScript ha surgido como una poderosa herramienta para superar muchas de las limitaciones estructurales de 
-JavaScript. Al agregar tipos estáticos, mejorar la organización del código y proporcionar una mejor experiencia 
-de desarrollo, TypeScript ayuda a los desarrolladores a escribir código más robusto, mantenible y escalable. Esto 
-ha llevado a su adopción creciente en la industria, especialmente para proyectos grandes y complejos donde las 
+TypeScript ha surgido como una poderosa herramienta para superar muchas de las limitaciones estructurales de
+JavaScript. Al agregar tipos estáticos, mejorar la organización del código y proporcionar una mejor experiencia
+de desarrollo, TypeScript ayuda a los desarrolladores a escribir código más robusto, mantenible y escalable. Esto
+ha llevado a su adopción creciente en la industria, especialmente para proyectos grandes y complejos donde las
 ventajas de un sistema de tipos sólido son más evidentes.
 
+\section*{Modelo de objetos}
+
+JavaScript está diseñado sobre un paradigma simple basado en objetos. Un objeto es una colección de pares de
+<clave, valor> los cuales son llamados propiedades. El valor de una propiedad puede ser una función en cuyo caso
+se conoce como método.
+
+Esta representación de los objetos al igual que en otros lenguajes de programación intenta simular el comportamiento
+de los objetos en la vida real.
+
+\subsection*{Inicializadores de los objetos}
+
+Los inicializadores de objetos de se denominan también literales de objeto y utilizan la siguiente siguiente sintaxis:
+
+\begin{lstlisting}
+const obj = {
+  property1: value1, // property name may be an identifier
+  2: value2, // or a number
+  "property n": value3, // or a string
+};
+\end{lstlisting}
+
+Las llaves de cada propiedad pueden ser cualquier expresión que pueda ser interpretada como un string,
+por ejemplo un número, un literal de string o una variable cuyo valor pueda ser interpretado como un string.
+Mientras que como valor de la propiedad puede aparecer cualquier expresión.
+
+Los inicializadores de objetos son expresiones, y cada inicializador de
+objeto da como resultado la creación de un nuevo objeto cada vez que se
+ejecuta la instrucción en la que aparece. Los inicializadores de objetos idénticos crean objetos distintos que no se comparan entre sí como iguales.
+
+\subsection*{Función constructora}
+
+Otra manera de inicializar los objetos es mediante el uso de una función constructora, mediante el uso de la
+de \textbf{this}.
+
+Por ejemplo para crear un objeto \textbf{Car} con las propiedades \textbf{make}, \textbf{model} y \textbf{year}
+lo hacemos de la siguiente manera:
+
+\begin{lstlisting}
+function Car(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+}
+\end{lstlisting}
+
+Luego podemos crear un nuevo objeto mediante el uso de \textbf{new}.
+
+\begin{lstlisting}
+const myCar = new Car("Eagle", "Talon TSi", 1993);
+\end{lstlisting}
+
+\subsection*{Prototipos}
+
+En programación, la herencia se refiere a la transmisión de características de un padre a un hijo para que un nuevo fragmento de código pueda reutilizarse
+y basarse en las características de uno existente. JavaScript implementa la herencia mediante el uso de objetos. Cada objeto tiene un enlace interno a otro
+objeto llamado su prototipo. Ese objeto prototipo tiene un prototipo propio, y así sucesivamente hasta que se llega a un objeto con su prototipo. Por definición,
+no tiene prototipo y actúa como el eslabón final de esta cadena de prototipos. Es posible mutar cualquier miembro de la cadena de prototipos o incluso intercambiar
+el prototipo en tiempo de ejecución, por lo que conceptos como el envío estático no existen en JavaScript.
+
+Los objetos JavaScript son "bolsas" dinámicas de propiedades (denominadas propiedades propias). Los objetos JavaScript tienen un vínculo a un objeto prototipo.
+Al intentar acceder a una propiedad de un objeto, la propiedad no solo se buscará en el objeto, sino también en el prototipo del objeto, el prototipo del prototipo,
+y así sucesivamente hasta que se encuentre una propiedad con un nombre coincidente o se alcance el final de la cadena del prototipo.
+
+Para modificar o crear el prototipo de un objeto se puede hacer uso de la propiedad \textbf{\_\_proto\_\_}.
+
+\begin{lstlisting}
+const o = {
+  a: 1,
+  b: 2,
+  // __proto__ sets the [[Prototype]]. It's specified here
+  // as another object literal.
+  __proto__: {
+    b: 3,
+    c: 4,
+  },
+};
+
+// o.[[Prototype]] has properties b and c.
+// o.[[Prototype]].[[Prototype]] is Object.prototype (we will explain
+// what that means later).
+// Finally, o.[[Prototype]].[[Prototype]].[[Prototype]] is null.
+// This is the end of the prototype chain, as null,
+// by definition, has no [[Prototype]].
+// Thus, the full prototype chain looks like:
+// { a: 1, b: 2 } ---> { b: 3, c: 4 } ---> Object.prototype ---> null
+
+console.log(o.a); // 1
+// Is there an 'a' own property on o? Yes, and its value is 1.
+
+console.log(o.b); // 2
+// Is there a 'b' own property on o? Yes, and its value is 2.
+// The prototype also has a 'b' property, but it's not visited.
+// This is called Property Shadowing
+
+console.log(o.c); // 4
+// Is there a 'c' own property on o? No, check its prototype.
+// Is there a 'c' own property on o.[[Prototype]]? Yes, its value is 4.
+
+console.log(o.d); // undefined
+// Is there a 'd' own property on o? No, check its prototype.
+// Is there a 'd' own property on o.[[Prototype]]? No, check its prototype.
+// o.[[Prototype]].[[Prototype]] is Object.prototype and
+// there is no 'd' property by default, check its prototype.
+// o.[[Prototype]].[[Prototype]].[[Prototype]] is null, stop searching,
+// no property found, return undefined.
+
+\end{lstlisting}
+
+\subsection*{Herencia}
+
+Los objetos en JavaScript no poseen métodos al igual que los lenguajes de programación orientados  a objetos,
+en cambio cualquier función puede ser atribuida a un objeto en forma de una propiedad. En consecuencia el
+comportamiento de un objeto padre puede ser heredado a un objeto hijo mediante una cadena de prototipos como vimos
+en la sección anterior.
+
+\begin{lstlisting}
+const parent = {
+  value: 2,
+  method() {
+    return this.value + 1;
+  },
+};
+
+console.log(parent.method()); // 3
+// When calling parent.method in this case, 'this' refers to parent
+
+// child is an object that inherits from parent
+const child = {
+  __proto__: parent,
+};
+console.log(child.method()); // 3
+// When child.method is called, 'this' refers to child.
+// So when child inherits the method of parent,
+// The property 'value' is sought on child. However, since child
+// doesn't have an own property called 'value', the property is
+// found on the [[Prototype]], which is parent.value.
+
+child.value = 4; // assign the value 4 to the property 'value' on child.
+// This shadows the 'value' property on parent.
+// The child object now looks like:
+// { value: 4, __proto__: { value: 2, method: [Function] } }
+console.log(child.method()); // 5
+// Since child now has the 'value' property, 'this.value' means
+// child.value instead
+
+\end{lstlisting}
+
+\subsection*{Incializar objetos usando las bondades de los prototipos}
+
+Supongamos que queremos crear varios objetos \textbf{Box} los cuales tendrán una propiedad \textbf{value} y un método
+\textbf{getValue}. Podríamos hacerlo de la siguiente manera:
+
+\begin{lstlisting}
+const boxes = [
+  { value: 1, getValue() { return this.value; } },
+  { value: 2, getValue() { return this.value; } },
+  { value: 3, getValue() { return this.value; } },
+];
+\end{lstlisting}
+
+Esta implementación no es muy adecuada ya que estamos creando un nuevo espacio de memoria para cada instancia
+de \textbf{getValue}, en cambio podemos hacer que estos objetos compartan la implementación de \textbf{getValue}
+mediante el uso de un prototipo.
+
+\begin{lstlisting}
+// A constructor function
+function Box(value) {
+  this.value = value;
+}
+
+// Properties all boxes created from the Box() constructor
+// will have
+Box.prototype.getValue = function () {
+  return this.value;
+};
+
+const boxes = [new Box(1), new Box(2), new Box(3)];
+\end{lstlisting}
+
+De esta manera los 3 objetos compartirán la misma instancia de la función \textbf{getValue}.
+
+\subsection*{Azúcar sintáctica para las funciones constructoras}
+
+Sin embargo el lenguaje nos proporciona una azúcar sintáctica para esta implementación mediante
+el uso de \textbf{class}:
+
+\begin{lstlisting}
+class Box {
+  constructor(value) {
+    this.value = value;
+  }
+
+  // Methods are created on Box.prototype
+  getValue() {
+    return this.value;
+  }
+}
+\end{lstlisting}
+
+y ahora la herencia se puede implementar de la siguiente manera.
+
+\begin{lstlisting}
+class Box {
+  constructor(value) {
+    this.value = value;
+  }
+
+  getValue() {
+    return this.value;
+  }
+}
+
+class ColoredBox extends Box {
+  constructor(value, color) {
+    // Llama al constructor de la clase padre
+    super(value);
+    this.color = color;
+  }
+
+  getColor() {
+    return this.color;
+  }
+
+  getValue() {
+    return `Value: ${this.value}, Color: ${this.color}`;
+  }
+}
+
+// Ejemplo de uso
+const myBox = new ColoredBox(10, 'red');
+console.log(myBox.getValue());  // Output: Value: 10, Color: red
+console.log(myBox.getColor());  // Output: red
+
+\end{lstlisting}
+
+\subsection*{Definiendo métodos get y set}
+
+Al igual que en los lenguajes de programación orientados a objetos en JavaScript es posible definir
+el método \textbf{get} y \textbf{set}, asignándole un método las llaves \textbf{get} y \textbf{set}
+del objeto respectivamente.
+
+\begin{lstlisting}
+const myObj = {
+  a: 7,
+  get b() {
+    return this.a + 1;
+  },
+  set c(x) {
+    this.a = x / 2;
+  },
+};
+
+console.log(myObj.a); // 7
+console.log(myObj.b); // 8, returned from the get b() method
+myObj.c = 50; // Calls the set c(x) method
+console.log(myObj.a); // 25
+\end{lstlisting}
+
+\subsection*{Ventajas y desventajas del modelo de objetos basado en prototipos }
+
+Ventajas y Desventajas del Modelo de Objetos Basado en Prototipos
+
+Ventajas
+
+\begin{enumerate}
+    \item Flexibilidad y Dinamismo:
+          \begin{itemize}
+              \item Modificación Dinámica: Los objetos pueden ser modificados en tiempo de ejecución, lo que permite
+                    cambiar su estructura y comportamiento dinámicamente.
+              \item Extensión de Objetos Existentes: Es fácil añadir propiedades y métodos a objetos ya existentes sin
+                    necesidad de definir nuevas clases.
+          \end{itemize}
+    \item Simplicidad Conceptual:
+          \begin{itemize}
+              \item Sin Necesidad de Clases: No requiere la definición de clases; en cambio, los objetos pueden ser
+                    creados directamente y extendidos de manera simple.
+              \item Reutilización Directa: Permite la reutilización directa de objetos existentes como prototipos
+                    para nuevos objetos.
+          \end{itemize}
+    \item Herencia de Prototipos:
+          \begin{itemize}
+              \item Cadena de Prototipos: La cadena de prototipos permite una forma sencilla y efectiva de herencia y
+                    reutilización de propiedades y métodos.
+              \item Mutación Prototípica: Se pueden cambiar los prototipos en tiempo de ejecución, permitiendo ajustar
+                    dinámicamente la herencia y el comportamiento de los objetos.
+          \end{itemize}
+    \item Simplicidad en el Envío de Mensajes:
+          \begin{itemize}
+              \item Flexibilidad en el Envío: La resolución de métodos es dinámica y se realiza a través de la cadena
+                    de prototipos, lo que permite una mayor flexibilidad en la ejecución de métodos.
+          \end{itemize}
+\end{enumerate}
+
+Desventajas
+
+\begin{enumerate}
+    \item Complejidad en Grandes Proyectos:
+          \begin{itemize}
+            \item Mantenimiento: En proyectos grandes, la falta de estructura de clases puede llevar a un código 
+            desorganizado y difícil de mantener.
+            \item Refactorización: La flexibilidad y dinamismo pueden dificultar la refactorización segura del 
+            código, especialmente en proyectos a gran escala.
+          \end{itemize}
+    \item Rendimiento:
+          \begin{itemize}
+            \item Coste de Búsqueda en la Cadena de Prototipos: La búsqueda de propiedades y métodos a través de la 
+            cadena de prototipos puede introducir sobrecarga de rendimiento.
+            \item Mutaciones Dinámicas: Las modificaciones dinámicas en los prototipos pueden afectar negativamente 
+            al rendimiento del motor de JavaScript, que debe adaptarse a los cambios en tiempo de ejecución.
+          \end{itemize}
+    \item Inconsistencias y Errores:
+          \begin{itemize}
+            \item Propiedades Heredadas: La herencia de propiedades y métodos a través de prototipos puede llevar a 
+            errores si no se manejan cuidadosamente las propiedades sobrescritas o heredadas.
+            \item Problemas de Contexto: El uso del contexto (this) en JavaScript puede ser confuso y propenso a 
+            errores, especialmente cuando se utilizan funciones como métodos.  
+          \end{itemize}
+    \item Curva de Aprendizaje:
+          \begin{itemize}
+            \item Concepto de Prototipos: Los desarrolladores acostumbrados a lenguajes basados en clases pueden 
+            encontrar confuso el modelo de prototipos y la herencia prototípica.
+            \item Contexto Dinámico: La dinámica del contexto y la necesidad de entender cómo funcionan los enlaces 
+            de prototipos pueden añadir complejidad para los nuevos desarrolladores.
+          \end{itemize} 
+\end{enumerate}
 \end{document}
