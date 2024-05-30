@@ -1,0 +1,181 @@
+\documentclass{article}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{float}
+\usepackage[text={18cm,21cm},centering]{geometry}
+\usepackage{hyperref} \hypersetup{ colorlinks=true, linkcolor=blue, filecolor=magenta,
+urlcolor=blue, }
+
+\begin{document}
+
+
+\begin{titlepage}
+    \centering
+    {\bfseries\LARGE Universidad de La Habana \par}
+    \vspace{1cm}
+    {\scshape\Large Facultad de Matemática y Computación \par}
+    \vspace{3cm}
+    {\scshape\Huge Lenguajes de Programación\\ Seminario 4 (Javascript) \par}
+    \vfill
+
+    {\Large Juan Carlos Espinoza Delgado C-411 \par}
+    {\Large Raudel Alejandro Gómez Molina C-411 \par}
+    {\Large Alex Sierra Alcalá C-411 \par}
+    \vfill
+    {\href{https://github.com/ARJ-Code/js-lp}{Proyecto en github} \par}
+\end{titlepage}
+
+\section*{Introducción}
+
+\subsection*{Propósito del Surgimiento de JavaScript}
+
+JavaScript nació en 1995 de la mano de Brendan Eich en Netscape Communications, con el propósito de permitir a los
+desarrolladores agregar interactividad a las páginas web. A diferencia de lenguajes como Java, que requerían
+compilación y eran más complejos, JavaScript fue diseñado para ser sencillo, interpretado y embebido directamente en
+los navegadores. Su objetivo principal era facilitar la manipulación del Document Object Model (DOM) y permitir la
+creación de experiencias web más dinámicas y atractivas para los usuarios.
+
+\subsection*{Problemas de Compatibilidad de los Navegadores Antes de la Adopción de ECMAScript 6}
+
+Antes de la estandarización y adopción de ECMAScript 6 (ES6) en 2015, el ecosistema de JavaScript enfrentaba serios
+desafíos de compatibilidad entre navegadores. Cada navegador (Internet Explorer, Netscape, Firefox, Chrome, Safari,
+etc.) implementaba el lenguaje de manera ligeramente diferente, lo que resultaba en:
+
+\begin{itemize}
+    \item Inconsistencias en las API y Funcionalidades: Los desarrolladores tenían que escribir código específico
+          para cada navegador o usar librerías como jQuery para abstraer estas diferencias.
+    \item Problemas de Rendimiento: Diferentes motores de JavaScript (como V8 en Chrome, SpiderMonkey en Firefox)
+          tenían variaciones significativas en cómo ejecutaban el código, lo que afectaba la experiencia del usuario.
+    \item Falta de Características Modernas: Sin una actualización estandarizada, los desarrolladores no podían
+          aprovechar características modernas y eficientes en todos los navegadores, limitando la capacidad de innovación y la complejidad de las aplicaciones web.
+
+\end{itemize}
+
+\subsection*{Actual Uso y Versatilidad de JavaScript}
+
+Desde la adopción de ES6 y posteriores actualizaciones de ECMAScript, JavaScript ha evolucionado enormemente,
+convirtiéndose en uno de los lenguajes de programación más versátiles y ampliamente utilizados en la industria del
+software. Actualmente, JavaScript es la columna vertebral del desarrollo web moderno, gracias a sus siguientes
+características:
+
+\begin{itemize}
+    \item Compatibilidad y Estandarización: Con la adopción de ES6 y versiones posteriores, los navegadores modernos
+          ofrecen una implementación más consistente y completa del lenguaje, reduciendo significativamente los problemas
+          de compatibilidad.
+    \item Versatilidad: JavaScript no solo se utiliza en el desarrollo frontend con tecnologías como React, Angular y
+          Vue.js, sino también en el backend con Node.js, lo que permite a los desarrolladores usar un solo lenguaje en
+          toda la stack de aplicaciones.
+    \item Ecosistema Rico: Un vasto ecosistema de herramientas, librerías y frameworks facilita el desarrollo rápido
+          y eficiente de aplicaciones web, móviles (React Native), de escritorio (Electron) e incluso en Internet de las
+          Cosas (IoT).
+    \item  Innovación Continua: La comunidad de JavaScript y los comités de ECMAScript siguen introduciendo nuevas
+          características y mejoras que mantienen al lenguaje relevante y poderoso para enfrentar los desafíos tecnológicos
+          actuales.
+\end{itemize}
+
+En resumen, JavaScript ha recorrido un largo camino desde sus inicios como un simple lenguaje de scripting para
+navegadores, hasta convertirse en una pieza fundamental del desarrollo de software moderno. Su evolución ha permitido
+resolver problemas críticos de compatibilidad y ha potenciado su uso en múltiples contextos, demostrando una
+versatilidad y adaptabilidad que siguen siendo esenciales en la industria tecnológica actual.
+
+\section*{Problemas Estructurales de JavaScript y el Surgimiento de TypeScript}
+
+\subsection*{Problemas Estructurales de JavaScript}
+
+A pesar de su popularidad y versatilidad, JavaScript presenta varios problemas estructurales que pueden complicar
+el desarrollo de aplicaciones complejas. Estos problemas incluyen:
+
+\begin{enumerate}
+    \item Tipado Dinámico y Falta de Tipos Estáticos:
+          \begin{itemize}
+              \item JavaScript es un lenguaje de tipado dinámico, lo que significa que las variables pueden cambiar de
+                    tipo durante la ejecución. Esto puede llevar a errores difíciles de detectar y depurar.
+              \item La falta de verificación de tipos en tiempo de compilación puede resultar en problemas de
+                    consistencia y errores de tipo que solo se manifiestan en tiempo de ejecución.
+          \end{itemize}
+    \item Problemas de Mantenimiento y Escalabilidad:
+          \begin{itemize}
+              \item En proyectos grandes, la ausencia de un sistema de tipos robusto puede hacer que el código sea
+                    difícil de mantener y refactorizar.
+              \item La gestión de grandes bases de código puede volverse compleja debido a la falta de estructura y
+                    organización que un sistema de tipos podría proporcionar.
+          \end{itemize}
+    \item Herencia Prototípica:
+          \begin{itemize}
+              \item Aunque JavaScript soporta herencia a través de prototipos, esta puede ser menos intuitiva y más
+                    propensa a errores que la herencia basada en clases, especialmente para desarrolladores
+                    provenientes de otros lenguajes orientados a objetos.
+          \end{itemize}
+    \item Gestión de Módulos:
+          \begin{itemize}
+              \item Antes de ES6, JavaScript no tenía un sistema nativo de módulos, lo que dificultaba la
+                    organización y reutilización del código.
+              \item La gestión de dependencias y la modularización del código eran complejas y dependían de
+                    herramientas y patrones externos.
+          \end{itemize}
+    \item Problemas de Asincronía:
+          \begin{itemize}
+              \item El manejo de operaciones asíncronas en JavaScript, tradicionalmente mediante callbacks, puede
+                    llevar al llamado "callback hell", haciendo que el código sea difícil de leer y mantener.
+          \end{itemize}
+\end{enumerate}
+
+\subsection*{ El Surgimiento de TypeScript}
+
+Para abordar muchos de estos problemas, Microsoft introdujo TypeScript en 2012. TypeScript es un superconjunto de
+JavaScript que agrega tipos estáticos y otras características avanzadas, con el objetivo de mejorar la productividad
+del desarrollo y la mantenibilidad del código.
+
+\begin{enumerate}
+    \item Tipos Estáticos:
+          \begin{itemize}
+              \item TypeScript introduce un sistema de tipos estáticos que permite a los desarrolladores definir y
+                    verificar los tipos de variables, funciones y objetos en tiempo de compilación.
+              \item Esto ayuda a identificar errores de tipo antes de que el código se ejecute, mejorando la
+                    confiabilidad y reduciendo el número de errores en tiempo de ejecución.
+          \end{itemize}
+    \item Compatibilidad con JavaScript:
+          \begin{itemize}
+              \item TypeScript es un superconjunto estricto de JavaScript, lo que significa que cualquier código
+                    JavaScript válido es también un código TypeScript válido.
+              \item Esto permite a los desarrolladores adoptar TypeScript de manera incremental, comenzando con
+                    archivos JavaScript existentes y agregando gradualmente tipos y características de TypeScript.
+          \end{itemize}
+
+    \item Mejor Herramientas y Soporte para IDE:
+          \begin{itemize}
+              \item TypeScript ofrece una integración superior con editores de código y entornos de desarrollo
+                    integrados (IDE), proporcionando autocompletado, refactorización y navegación mejorados.
+              \item Las herramientas de desarrollo se benefician del conocimiento del sistema de tipos, lo que
+                    facilita la escritura y mantenimiento del código.
+          \end{itemize}
+
+    \item Clases y Herencia:
+          \begin{itemize}
+              \item TypeScript introduce una sintaxis de clases más familiar para los desarrolladores que provienen
+                    de otros lenguajes orientados a objetos, mejorando la legibilidad y el uso de patrones de diseño
+                    orientados a objetos.
+              \item  Soporta herencia, encapsulación y polimorfismo de manera más intuitiva y estructurada.
+          \end{itemize}
+    \item Módulos y ES6+:
+          \begin{itemize}
+              \item TypeScript soporta módulos ES6, permitiendo una mejor organización del código y gestión de
+                    dependencias.
+              \item Aprovecha las características modernas de JavaScript, asegurando que el código esté alineado con
+                    las mejores prácticas actuales.
+          \end{itemize}
+    \item Asincronía Mejorada:
+          \begin{itemize}
+              \item TypeScript mejora el manejo de operaciones asíncronas mediante el uso de async/await,
+                    proporcionando una sintaxis más clara y directa para el manejo de promesas y funciones asíncronas.
+          \end{itemize}
+\end{enumerate}
+
+TypeScript ha surgido como una poderosa herramienta para superar muchas de las limitaciones estructurales de 
+JavaScript. Al agregar tipos estáticos, mejorar la organización del código y proporcionar una mejor experiencia 
+de desarrollo, TypeScript ayuda a los desarrolladores a escribir código más robusto, mantenible y escalable. Esto 
+ha llevado a su adopción creciente en la industria, especialmente para proyectos grandes y complejos donde las 
+ventajas de un sistema de tipos sólido son más evidentes.
+
+\end{document}
