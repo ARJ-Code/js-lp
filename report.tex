@@ -59,9 +59,9 @@ urlcolor=blue, }
     {\href{https://github.com/ARJ-Code/js-lp}{Proyecto en github} \par}
 \end{titlepage}
 
-\section*{Introducción}
+\section{Introducción}
 
-\subsection*{Propósito del Surgimiento de JavaScript}
+\subsection{Propósito del Surgimiento de JavaScript}
 
 JavaScript nació en 1995 de la mano de Brendan Eich en Netscape Communications, con el propósito de permitir a los
 desarrolladores agregar interactividad a las páginas web. A diferencia de lenguajes como Java, que requerían
@@ -69,7 +69,7 @@ compilación y eran más complejos, JavaScript fue diseñado para ser sencillo, 
 los navegadores. Su objetivo principal era facilitar la manipulación del Document Object Model (DOM) y permitir la
 creación de experiencias web más dinámicas y atractivas para los usuarios.
 
-\subsection*{Problemas de Compatibilidad de los Navegadores Antes de la Adopción de ECMAScript 6}
+\subsection{Problemas de Compatibilidad de los Navegadores Antes de la Adopción de ECMAScript 6}
 
 Antes de la estandarización y adopción de ECMAScript 6 (ES6) en 2015, el ecosistema de JavaScript enfrentaba serios
 desafíos de compatibilidad entre navegadores. Cada navegador (Internet Explorer, Netscape, Firefox, Chrome, Safari,
@@ -85,7 +85,7 @@ etc.) implementaba el lenguaje de manera ligeramente diferente, lo que resultaba
 
 \end{itemize}
 
-\subsection*{Actual Uso y Versatilidad de JavaScript}
+\subsection{Actual Uso y Versatilidad de JavaScript}
 
 Desde la adopción de ES6 y posteriores actualizaciones de ECMAScript, JavaScript ha evolucionado enormemente,
 convirtiéndose en uno de los lenguajes de programación más versátiles y ampliamente utilizados en la industria del
@@ -112,9 +112,9 @@ navegadores, hasta convertirse en una pieza fundamental del desarrollo de softwa
 resolver problemas críticos de compatibilidad y ha potenciado su uso en múltiples contextos, demostrando una
 versatilidad y adaptabilidad que siguen siendo esenciales en la industria tecnológica actual.
 
-\section*{Problemas Estructurales de JavaScript y el Surgimiento de TypeScript}
+\section{Problemas Estructurales de JavaScript y el Surgimiento de TypeScript}
 
-\subsection*{Problemas Estructurales de JavaScript}
+\subsection{Problemas Estructurales de JavaScript}
 
 A pesar de su popularidad y versatilidad, JavaScript presenta varios problemas estructurales que pueden complicar
 el desarrollo de aplicaciones complejas. Estos problemas incluyen:
@@ -154,7 +154,7 @@ el desarrollo de aplicaciones complejas. Estos problemas incluyen:
           \end{itemize}
 \end{enumerate}
 
-\subsection*{ El Surgimiento de TypeScript}
+\subsection{ El Surgimiento de TypeScript}
 
 Para abordar muchos de estos problemas, Microsoft introdujo TypeScript en 2012. TypeScript es un superconjunto de
 JavaScript que agrega tipos estáticos y otras características avanzadas, con el objetivo de mejorar la productividad
@@ -211,7 +211,7 @@ de desarrollo, TypeScript ayuda a los desarrolladores a escribir código más ro
 ha llevado a su adopción creciente en la industria, especialmente para proyectos grandes y complejos donde las
 ventajas de un sistema de tipos sólido son más evidentes.
 
-\section*{Modelo de objetos}
+\section{Modelo de objetos}
 
 JavaScript está diseñado sobre un paradigma simple basado en objetos. Un objeto es una colección de pares de
 <clave, valor> los cuales son llamados propiedades. El valor de una propiedad puede ser una función en cuyo caso
@@ -220,7 +220,7 @@ se conoce como método.
 Esta representación de los objetos al igual que en otros lenguajes de programación intenta simular el comportamiento
 de los objetos en la vida real.
 
-\subsection*{Inicializadores de los objetos}
+\subsection{Inicializadores de los objetos}
 
 Los inicializadores de objetos de se denominan también literales de objeto y utilizan la siguiente siguiente sintaxis:
 
@@ -240,7 +240,7 @@ Los inicializadores de objetos son expresiones, y cada inicializador de
 objeto da como resultado la creación de un nuevo objeto cada vez que se
 ejecuta la instrucción en la que aparece. Los inicializadores de objetos idénticos crean objetos distintos que no se comparan entre sí como iguales.
 
-\subsection*{Función constructora}
+\subsection{Función constructora}
 
 Otra manera de inicializar los objetos es mediante el uso de una función constructora, mediante el uso de la
 de \textbf{this}.
@@ -262,7 +262,7 @@ Luego podemos crear un nuevo objeto mediante el uso de \textbf{new}.
 const myCar = new Car("Eagle", "Talon TSi", 1993);
 \end{lstlisting}
 
-\subsection*{Prototipos}
+\subsection{Prototipos}
 
 En programación, la herencia se refiere a la transmisión de características de un padre a un hijo para que un nuevo fragmento de código pueda reutilizarse
 y basarse en las características de uno existente. JavaScript implementa la herencia mediante el uso de objetos. Cada objeto tiene un enlace interno a otro
@@ -319,7 +319,7 @@ console.log(o.d); // undefined
 
 \end{lstlisting}
 
-\subsection*{Herencia}
+\subsection{Herencia}
 
 Los objetos en JavaScript no poseen métodos al igual que los lenguajes de programación orientados  a objetos,
 en cambio cualquier función puede ser atribuida a un objeto en forma de una propiedad. En consecuencia el
@@ -358,7 +358,7 @@ console.log(child.method()); // 5
 
 \end{lstlisting}
 
-\subsection*{Incializar objetos usando las bondades de los prototipos}
+\subsection{Incializar objetos usando las bondades de los prototipos}
 
 Supongamos que queremos crear varios objetos \textbf{Box} los cuales tendrán una propiedad \textbf{value} y un método
 \textbf{getValue}. Podríamos hacerlo de la siguiente manera:
@@ -392,7 +392,7 @@ const boxes = [new Box(1), new Box(2), new Box(3)];
 
 De esta manera los 3 objetos compartirán la misma instancia de la función \textbf{getValue}.
 
-\subsection*{Azúcar sintáctica para las funciones constructoras}
+\subsection{Azúcar sintáctica para las funciones constructoras}
 
 Sin embargo el lenguaje nos proporciona una azúcar sintáctica para esta implementación mediante
 el uso de \textbf{class}:
@@ -446,7 +446,7 @@ console.log(myBox.getColor());  // Output: red
 
 \end{lstlisting}
 
-\subsection*{Definiendo métodos get y set}
+\subsection{Definiendo métodos get y set}
 
 Al igual que en los lenguajes de programación orientados a objetos en JavaScript es posible definir
 el método \textbf{get} y \textbf{set}, asignándole un método las llaves \textbf{get} y \textbf{set}
@@ -469,7 +469,7 @@ myObj.c = 50; // Calls the set c(x) method
 console.log(myObj.a); // 25
 \end{lstlisting}
 
-\subsection*{Ventajas y desventajas del modelo de objetos basado en prototipos }
+\subsection{Ventajas y desventajas del modelo de objetos basado en prototipos }
 
 Ventajas y Desventajas del Modelo de Objetos Basado en Prototipos
 
@@ -536,4 +536,5 @@ Desventajas
             de prototipos pueden añadir complejidad para los nuevos desarrolladores.
           \end{itemize} 
 \end{enumerate}
+
 \end{document}
