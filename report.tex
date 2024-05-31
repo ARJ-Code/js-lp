@@ -26,6 +26,18 @@ urlcolor=blue, }
   morestring=[b]"
 }
 
+% Definición del lenguaje Python para listings
+\lstdefinelanguage{Python}{
+  keywords={and, as, assert, break, class, continue, def, del, elif, else, except, exec, finally, for, from, global, if, import, in, is, lambda, not, or, pass, print, raise, return, try, while, with, yield, True, False, None},
+  sensitive=true,
+  comment=[l]\#,
+  morecomment=[s]{"""}{"""},
+  morestring=[b]',
+  morestring=[b]",
+  morestring=[b]'''
+  morestring=[b]"""
+}
+
 \lstset{ 
   language=JavaScript,        % El lenguaje de programación
   basicstyle=\ttfamily\footnotesize, % El estilo básico para el código
@@ -44,19 +56,19 @@ urlcolor=blue, }
 
 
 \begin{titlepage}
-    \centering
-    {\bfseries\LARGE Universidad de La Habana \par}
-    \vspace{1cm}
-    {\scshape\Large Facultad de Matemática y Computación \par}
-    \vspace{3cm}
-    {\scshape\Huge Lenguajes de Programación\\ Seminario 4 (JavaScript) \par}
-    \vfill
+      \centering
+      {\bfseries\LARGE Universidad de La Habana \par}
+      \vspace{1cm}
+      {\scshape\Large Facultad de Matemática y Computación \par}
+      \vspace{3cm}
+      {\scshape\Huge Lenguajes de Programación\\ Seminario 4 (JavaScript) \par}
+      \vfill
 
-    {\Large Juan Carlos Espinoza Delgado C-411 \par}
-    {\Large Raudel Alejandro Gómez Molina C-411 \par}
-    {\Large Alex Sierra Alcalá C-411 \par}
-    \vfill
-    {\href{https://github.com/ARJ-Code/js-lp}{Proyecto en github} \par}
+      {\Large Juan Carlos Espinoza Delgado C-411 \par}
+      {\Large Raudel Alejandro Gómez Molina C-411 \par}
+      {\Large Alex Sierra Alcalá C-411 \par}
+      \vfill
+      {\href{https://github.com/ARJ-Code/js-lp}{Proyecto en github} \par}
 \end{titlepage}
 
 \section{Introducción}
@@ -76,12 +88,12 @@ desafíos de compatibilidad entre navegadores. Cada navegador (Internet Explorer
 etc.) implementaba el lenguaje de manera ligeramente diferente, lo que resultaba en:
 
 \begin{itemize}
-    \item Inconsistencias en las API y Funcionalidades: Los desarrolladores tenían que escribir código específico
-          para cada navegador o usar librerías como jQuery para abstraer estas diferencias.
-    \item Problemas de Rendimiento: Diferentes motores de JavaScript (como V8 en Chrome, SpiderMonkey en Firefox)
-          tenían variaciones significativas en cómo ejecutaban el código, lo que afectaba la experiencia del usuario.
-    \item Falta de Características Modernas: Sin una actualización estandarizada, los desarrolladores no podían
-          aprovechar características modernas y eficientes en todos los navegadores, limitando la capacidad de innovación y la complejidad de las aplicaciones web.
+      \item Inconsistencias en las API y Funcionalidades: Los desarrolladores tenían que escribir código específico
+            para cada navegador o usar librerías como jQuery para abstraer estas diferencias.
+      \item Problemas de Rendimiento: Diferentes motores de JavaScript (como V8 en Chrome, SpiderMonkey en Firefox)
+            tenían variaciones significativas en cómo ejecutaban el código, lo que afectaba la experiencia del usuario.
+      \item Falta de Características Modernas: Sin una actualización estandarizada, los desarrolladores no podían
+            aprovechar características modernas y eficientes en todos los navegadores, limitando la capacidad de innovación y la complejidad de las aplicaciones web.
 
 \end{itemize}
 
@@ -93,18 +105,18 @@ software. Actualmente, JavaScript es la columna vertebral del desarrollo web mod
 características:
 
 \begin{itemize}
-    \item Compatibilidad y Estandarización: Con la adopción de ES6 y versiones posteriores, los navegadores modernos
-          ofrecen una implementación más consistente y completa del lenguaje, reduciendo significativamente los problemas
-          de compatibilidad.
-    \item Versatilidad: JavaScript no solo se utiliza en el desarrollo frontend con tecnologías como React, Angular y
-          Vue.js, sino también en el backend con Node.js, lo que permite a los desarrolladores usar un solo lenguaje en
-          toda la stack de aplicaciones.
-    \item Ecosistema Rico: Un vasto ecosistema de herramientas, librerías y frameworks facilita el desarrollo rápido
-          y eficiente de aplicaciones web, móviles (React Native), de escritorio (Electron) e incluso en Internet de las
-          Cosas (IoT).
-    \item  Innovación Continua: La comunidad de JavaScript y los comités de ECMAScript siguen introduciendo nuevas
-          características y mejoras que mantienen al lenguaje relevante y poderoso para enfrentar los desafíos tecnológicos
-          actuales.
+      \item Compatibilidad y Estandarización: Con la adopción de ES6 y versiones posteriores, los navegadores modernos
+            ofrecen una implementación más consistente y completa del lenguaje, reduciendo significativamente los problemas
+            de compatibilidad.
+      \item Versatilidad: JavaScript no solo se utiliza en el desarrollo frontend con tecnologías como React, Angular y
+            Vue.js, sino también en el backend con Node.js, lo que permite a los desarrolladores usar un solo lenguaje en
+            toda la stack de aplicaciones.
+      \item Ecosistema Rico: Un vasto ecosistema de herramientas, librerías y frameworks facilita el desarrollo rápido
+            y eficiente de aplicaciones web, móviles (React Native), de escritorio (Electron) e incluso en Internet de las
+            Cosas (IoT).
+      \item  Innovación Continua: La comunidad de JavaScript y los comités de ECMAScript siguen introduciendo nuevas
+            características y mejoras que mantienen al lenguaje relevante y poderoso para enfrentar los desafíos tecnológicos
+            actuales.
 \end{itemize}
 
 En resumen, JavaScript ha recorrido un largo camino desde sus inicios como un simple lenguaje de scripting para
@@ -120,38 +132,38 @@ A pesar de su popularidad y versatilidad, JavaScript presenta varios problemas e
 el desarrollo de aplicaciones complejas. Estos problemas incluyen:
 
 \begin{enumerate}
-    \item Tipado Dinámico y Falta de Tipos Estáticos:
-          \begin{itemize}
-              \item JavaScript es un lenguaje de tipado dinámico, lo que significa que las variables pueden cambiar de
-                    tipo durante la ejecución. Esto puede llevar a errores difíciles de detectar y depurar.
-              \item La falta de verificación de tipos en tiempo de compilación puede resultar en problemas de
-                    consistencia y errores de tipo que solo se manifiestan en tiempo de ejecución.
-          \end{itemize}
-    \item Problemas de Mantenimiento y Escalabilidad:
-          \begin{itemize}
-              \item En proyectos grandes, la ausencia de un sistema de tipos robusto puede hacer que el código sea
-                    difícil de mantener y refactorizar.
-              \item La gestión de grandes bases de código puede volverse compleja debido a la falta de estructura y
-                    organización que un sistema de tipos podría proporcionar.
-          \end{itemize}
-    \item Herencia Prototípica:
-          \begin{itemize}
-              \item Aunque JavaScript soporta herencia a través de prototipos, esta puede ser menos intuitiva y más
-                    propensa a errores que la herencia basada en clases, especialmente para desarrolladores
-                    provenientes de otros lenguajes orientados a objetos.
-          \end{itemize}
-    \item Gestión de Módulos:
-          \begin{itemize}
-              \item Antes de ES6, JavaScript no tenía un sistema nativo de módulos, lo que dificultaba la
-                    organización y reutilización del código.
-              \item La gestión de dependencias y la modularización del código eran complejas y dependían de
-                    herramientas y patrones externos.
-          \end{itemize}
-    \item Problemas de Asincronía:
-          \begin{itemize}
-              \item El manejo de operaciones asíncronas en JavaScript, tradicionalmente mediante callbacks, puede
-                    llevar al llamado "callback hell", haciendo que el código sea difícil de leer y mantener.
-          \end{itemize}
+      \item Tipado Dinámico y Falta de Tipos Estáticos:
+            \begin{itemize}
+                  \item JavaScript es un lenguaje de tipado dinámico, lo que significa que las variables pueden cambiar de
+                        tipo durante la ejecución. Esto puede llevar a errores difíciles de detectar y depurar.
+                  \item La falta de verificación de tipos en tiempo de compilación puede resultar en problemas de
+                        consistencia y errores de tipo que solo se manifiestan en tiempo de ejecución.
+            \end{itemize}
+      \item Problemas de Mantenimiento y Escalabilidad:
+            \begin{itemize}
+                  \item En proyectos grandes, la ausencia de un sistema de tipos robusto puede hacer que el código sea
+                        difícil de mantener y refactorizar.
+                  \item La gestión de grandes bases de código puede volverse compleja debido a la falta de estructura y
+                        organización que un sistema de tipos podría proporcionar.
+            \end{itemize}
+      \item Herencia Prototípica:
+            \begin{itemize}
+                  \item Aunque JavaScript soporta herencia a través de prototipos, esta puede ser menos intuitiva y más
+                        propensa a errores que la herencia basada en clases, especialmente para desarrolladores
+                        provenientes de otros lenguajes orientados a objetos.
+            \end{itemize}
+      \item Gestión de Módulos:
+            \begin{itemize}
+                  \item Antes de ES6, JavaScript no tenía un sistema nativo de módulos, lo que dificultaba la
+                        organización y reutilización del código.
+                  \item La gestión de dependencias y la modularización del código eran complejas y dependían de
+                        herramientas y patrones externos.
+            \end{itemize}
+      \item Problemas de Asincronía:
+            \begin{itemize}
+                  \item El manejo de operaciones asíncronas en JavaScript, tradicionalmente mediante callbacks, puede
+                        llevar al llamado "callback hell", haciendo que el código sea difícil de leer y mantener.
+            \end{itemize}
 \end{enumerate}
 
 \subsection{ El Surgimiento de TypeScript}
@@ -161,48 +173,48 @@ JavaScript que agrega tipos estáticos y otras características avanzadas, con e
 del desarrollo y la mantenibilidad del código.
 
 \begin{enumerate}
-    \item Tipos Estáticos:
-          \begin{itemize}
-              \item TypeScript introduce un sistema de tipos estáticos que permite a los desarrolladores definir y
-                    verificar los tipos de variables, funciones y objetos en tiempo de compilación.
-              \item Esto ayuda a identificar errores de tipo antes de que el código se ejecute, mejorando la
-                    confiabilidad y reduciendo el número de errores en tiempo de ejecución.
-          \end{itemize}
-    \item Compatibilidad con JavaScript:
-          \begin{itemize}
-              \item TypeScript es un superconjunto estricto de JavaScript, lo que significa que cualquier código
-                    JavaScript válido es también un código TypeScript válido.
-              \item Esto permite a los desarrolladores adoptar TypeScript de manera incremental, comenzando con
-                    archivos JavaScript existentes y agregando gradualmente tipos y características de TypeScript.
-          \end{itemize}
+      \item Tipos Estáticos:
+            \begin{itemize}
+                  \item TypeScript introduce un sistema de tipos estáticos que permite a los desarrolladores definir y
+                        verificar los tipos de variables, funciones y objetos en tiempo de compilación.
+                  \item Esto ayuda a identificar errores de tipo antes de que el código se ejecute, mejorando la
+                        confiabilidad y reduciendo el número de errores en tiempo de ejecución.
+            \end{itemize}
+      \item Compatibilidad con JavaScript:
+            \begin{itemize}
+                  \item TypeScript es un superconjunto estricto de JavaScript, lo que significa que cualquier código
+                        JavaScript válido es también un código TypeScript válido.
+                  \item Esto permite a los desarrolladores adoptar TypeScript de manera incremental, comenzando con
+                        archivos JavaScript existentes y agregando gradualmente tipos y características de TypeScript.
+            \end{itemize}
 
-    \item Mejor Herramientas y Soporte para IDE:
-          \begin{itemize}
-              \item TypeScript ofrece una integración superior con editores de código y entornos de desarrollo
-                    integrados (IDE), proporcionando autocompletado, refactorización y navegación mejorados.
-              \item Las herramientas de desarrollo se benefician del conocimiento del sistema de tipos, lo que
-                    facilita la escritura y mantenimiento del código.
-          \end{itemize}
+      \item Mejor Herramientas y Soporte para IDE:
+            \begin{itemize}
+                  \item TypeScript ofrece una integración superior con editores de código y entornos de desarrollo
+                        integrados (IDE), proporcionando autocompletado, refactorización y navegación mejorados.
+                  \item Las herramientas de desarrollo se benefician del conocimiento del sistema de tipos, lo que
+                        facilita la escritura y mantenimiento del código.
+            \end{itemize}
 
-    \item Clases y Herencia:
-          \begin{itemize}
-              \item TypeScript introduce una sintaxis de clases más familiar para los desarrolladores que provienen
-                    de otros lenguajes orientados a objetos, mejorando la legibilidad y el uso de patrones de diseño
-                    orientados a objetos.
-              \item  Soporta herencia, encapsulación y polimorfismo de manera más intuitiva y estructurada.
-          \end{itemize}
-    \item Módulos y ES6+:
-          \begin{itemize}
-              \item TypeScript soporta módulos ES6, permitiendo una mejor organización del código y gestión de
-                    dependencias.
-              \item Aprovecha las características modernas de JavaScript, asegurando que el código esté alineado con
-                    las mejores prácticas actuales.
-          \end{itemize}
-    \item Asincronía Mejorada:
-          \begin{itemize}
-              \item TypeScript mejora el manejo de operaciones asíncronas mediante el uso de async/await,
-                    proporcionando una sintaxis más clara y directa para el manejo de promesas y funciones asíncronas.
-          \end{itemize}
+      \item Clases y Herencia:
+            \begin{itemize}
+                  \item TypeScript introduce una sintaxis de clases más familiar para los desarrolladores que provienen
+                        de otros lenguajes orientados a objetos, mejorando la legibilidad y el uso de patrones de diseño
+                        orientados a objetos.
+                  \item  Soporta herencia, encapsulación y polimorfismo de manera más intuitiva y estructurada.
+            \end{itemize}
+      \item Módulos y ES6+:
+            \begin{itemize}
+                  \item TypeScript soporta módulos ES6, permitiendo una mejor organización del código y gestión de
+                        dependencias.
+                  \item Aprovecha las características modernas de JavaScript, asegurando que el código esté alineado con
+                        las mejores prácticas actuales.
+            \end{itemize}
+      \item Asincronía Mejorada:
+            \begin{itemize}
+                  \item TypeScript mejora el manejo de operaciones asíncronas mediante el uso de async/await,
+                        proporcionando una sintaxis más clara y directa para el manejo de promesas y funciones asíncronas.
+            \end{itemize}
 \end{enumerate}
 
 TypeScript ha surgido como una poderosa herramienta para superar muchas de las limitaciones estructurales de
@@ -240,6 +252,8 @@ Los inicializadores de objetos son expresiones, y cada inicializador de
 objeto da como resultado la creación de un nuevo objeto cada vez que se
 ejecuta la instrucción en la que aparece. Los inicializadores de objetos idénticos crean objetos distintos que no se comparan entre sí como iguales.
 
+Las propiedades no asignadas de un objeto son \textbf{undefined} (y no \textbf{null}).
+
 \subsection{Función constructora}
 
 Otra manera de inicializar los objetos es mediante el uso de una función constructora, mediante el uso de la
@@ -261,6 +275,62 @@ Luego podemos crear un nuevo objeto mediante el uso de \textbf{new}.
 \begin{lstlisting}
 const myCar = new Car("Eagle", "Talon TSi", 1993);
 \end{lstlisting}
+
+\subsection{Acceso a las propiedades y eliminación de una propiedad}
+
+Acceso a las Propiedades
+
+En JavaScript, se puede acceder a las propiedades de un objeto utilizando dos métodos principales:
+
+\begin{enumerate}
+      \item Notación de Punto: Se usa cuando se conoce el nombre de la propiedad y es un identificador válido.
+            \begin{lstlisting}
+            let person = {
+            name: 'John',
+            age: 30
+            };
+            console.log(person.name); // Output: John      
+            \end{lstlisting}
+
+      \item Notación de Corchetes: Se usa cuando el nombre de la propiedad es dinámico o no es un identificador válido.
+            \begin{lstlisting}
+            let propertyName = 'age';
+            console.log(person[propertyName]); // Output: 30            
+            \end{lstlisting}
+
+\end{enumerate}
+
+Listar Todas las Propiedades
+
+Para listar todas las propiedades de un objeto, se pueden utilizar varios métodos:
+
+\begin{enumerate}
+      \item \textbf{for...in Loop}: Recorre todas las propiedades enumerables de un objeto.
+            \begin{lstlisting}
+            for (let key in person) {
+                  console.log(key + ': ' + person[key]);
+            }
+            \end{lstlisting}
+
+      \item \textbf{Object.keys()}: Devuelve un array con las propiedades enumerables propias del objeto.
+            \begin{lstlisting}
+            let keys = Object.keys(person);
+            console.log(keys); // Output: ['name', 'age']
+            \end{lstlisting}
+
+      \item \textbf{Object.values()}: Devuelve un array con los valores de las propiedades enumerables propias del objeto.
+            \begin{lstlisting}
+            let values = Object.values(person);
+            console.log(values); // Output: ['John', 30]
+            \end{lstlisting}
+
+      \item \textbf{ Object.entries()}: Devuelve un array de arrays, donde cada sub-array contiene un par clave-valor de las propiedades enumerables propias del objeto.
+            \begin{lstlisting}
+            let entries = Object.entries(person);
+            console.log(entries); // Output: [['name', 'John'], ['age', 30]]
+            \end{lstlisting}
+\end{enumerate}
+
 
 \subsection{Prototipos}
 
@@ -476,65 +546,96 @@ Ventajas y Desventajas del Modelo de Objetos Basado en Prototipos
 Ventajas
 
 \begin{enumerate}
-    \item Flexibilidad y Dinamismo:
-          \begin{itemize}
-              \item Modificación Dinámica: Los objetos pueden ser modificados en tiempo de ejecución, lo que permite
-                    cambiar su estructura y comportamiento dinámicamente.
-              \item Extensión de Objetos Existentes: Es fácil añadir propiedades y métodos a objetos ya existentes sin
-                    necesidad de definir nuevas clases.
-          \end{itemize}
-    \item Simplicidad Conceptual:
-          \begin{itemize}
-              \item Sin Necesidad de Clases: No requiere la definición de clases; en cambio, los objetos pueden ser
-                    creados directamente y extendidos de manera simple.
-              \item Reutilización Directa: Permite la reutilización directa de objetos existentes como prototipos
-                    para nuevos objetos.
-          \end{itemize}
-    \item Herencia de Prototipos:
-          \begin{itemize}
-              \item Cadena de Prototipos: La cadena de prototipos permite una forma sencilla y efectiva de herencia y
-                    reutilización de propiedades y métodos.
-              \item Mutación Prototípica: Se pueden cambiar los prototipos en tiempo de ejecución, permitiendo ajustar
-                    dinámicamente la herencia y el comportamiento de los objetos.
-          \end{itemize}
-    \item Simplicidad en el Envío de Mensajes:
-          \begin{itemize}
-              \item Flexibilidad en el Envío: La resolución de métodos es dinámica y se realiza a través de la cadena
-                    de prototipos, lo que permite una mayor flexibilidad en la ejecución de métodos.
-          \end{itemize}
+      \item Flexibilidad y Dinamismo:
+            \begin{itemize}
+                  \item Modificación Dinámica: Los objetos pueden ser modificados en tiempo de ejecución, lo que permite
+                        cambiar su estructura y comportamiento dinámicamente.
+                  \item Extensión de Objetos Existentes: Es fácil añadir propiedades y métodos a objetos ya existentes sin
+                        necesidad de definir nuevas clases.
+            \end{itemize}
+      \item Simplicidad Conceptual:
+            \begin{itemize}
+                  \item Sin Necesidad de Clases: No requiere la definición de clases; en cambio, los objetos pueden ser
+                        creados directamente y extendidos de manera simple.
+                  \item Reutilización Directa: Permite la reutilización directa de objetos existentes como prototipos
+                        para nuevos objetos.
+            \end{itemize}
+      \item Herencia de Prototipos:
+            \begin{itemize}
+                  \item Cadena de Prototipos: La cadena de prototipos permite una forma sencilla y efectiva de herencia y
+                        reutilización de propiedades y métodos.
+                  \item Mutación Prototípica: Se pueden cambiar los prototipos en tiempo de ejecución, permitiendo ajustar
+                        dinámicamente la herencia y el comportamiento de los objetos.
+            \end{itemize}
+      \item Simplicidad en el Envío de Mensajes:
+            \begin{itemize}
+                  \item Flexibilidad en el Envío: La resolución de métodos es dinámica y se realiza a través de la cadena
+                        de prototipos, lo que permite una mayor flexibilidad en la ejecución de métodos.
+            \end{itemize}
 \end{enumerate}
 
 Desventajas
 
 \begin{enumerate}
-    \item Complejidad en Grandes Proyectos:
-          \begin{itemize}
-            \item Mantenimiento: En proyectos grandes, la falta de estructura de clases puede llevar a un código 
-            desorganizado y difícil de mantener.
-            \item Refactorización: La flexibilidad y dinamismo pueden dificultar la refactorización segura del 
-            código, especialmente en proyectos a gran escala.
-          \end{itemize}
-    \item Rendimiento:
-          \begin{itemize}
-            \item Coste de Búsqueda en la Cadena de Prototipos: La búsqueda de propiedades y métodos a través de la 
-            cadena de prototipos puede introducir sobrecarga de rendimiento.
-            \item Mutaciones Dinámicas: Las modificaciones dinámicas en los prototipos pueden afectar negativamente 
-            al rendimiento del motor de JavaScript, que debe adaptarse a los cambios en tiempo de ejecución.
-          \end{itemize}
-    \item Inconsistencias y Errores:
-          \begin{itemize}
-            \item Propiedades Heredadas: La herencia de propiedades y métodos a través de prototipos puede llevar a 
-            errores si no se manejan cuidadosamente las propiedades sobrescritas o heredadas.
-            \item Problemas de Contexto: El uso del contexto (this) en JavaScript puede ser confuso y propenso a 
-            errores, especialmente cuando se utilizan funciones como métodos.  
-          \end{itemize}
-    \item Curva de Aprendizaje:
-          \begin{itemize}
-            \item Concepto de Prototipos: Los desarrolladores acostumbrados a lenguajes basados en clases pueden 
-            encontrar confuso el modelo de prototipos y la herencia prototípica.
-            \item Contexto Dinámico: La dinámica del contexto y la necesidad de entender cómo funcionan los enlaces 
-            de prototipos pueden añadir complejidad para los nuevos desarrolladores.
-          \end{itemize} 
+      \item Complejidad en Grandes Proyectos:
+            \begin{itemize}
+                  \item Mantenimiento: En proyectos grandes, la falta de estructura de clases puede llevar a un código
+                        desorganizado y difícil de mantener.
+                  \item Refactorización: La flexibilidad y dinamismo pueden dificultar la refactorización segura del
+                        código, especialmente en proyectos a gran escala.
+            \end{itemize}
+      \item Rendimiento:
+            \begin{itemize}
+                  \item Coste de Búsqueda en la Cadena de Prototipos: La búsqueda de propiedades y métodos a través de la
+                        cadena de prototipos puede introducir sobrecarga de rendimiento.
+                  \item Mutaciones Dinámicas: Las modificaciones dinámicas en los prototipos pueden afectar negativamente
+                        al rendimiento del motor de JavaScript, que debe adaptarse a los cambios en tiempo de ejecución.
+            \end{itemize}
+      \item Inconsistencias y Errores:
+            \begin{itemize}
+                  \item Propiedades Heredadas: La herencia de propiedades y métodos a través de prototipos puede llevar a
+                        errores si no se manejan cuidadosamente las propiedades sobrescritas o heredadas.
+                  \item Problemas de Contexto: El uso del contexto (this) en JavaScript puede ser confuso y propenso a
+                        errores, especialmente cuando se utilizan funciones como métodos.
+            \end{itemize}
+      \item Curva de Aprendizaje:
+            \begin{itemize}
+                  \item Concepto de Prototipos: Los desarrolladores acostumbrados a lenguajes basados en clases pueden
+                        encontrar confuso el modelo de prototipos y la herencia prototípica.
+                  \item Contexto Dinámico: La dinámica del contexto y la necesidad de entender cómo funcionan los enlaces
+                        de prototipos pueden añadir complejidad para los nuevos desarrolladores.
+            \end{itemize}
 \end{enumerate}
+
+\section{Implementación en Python del modelo de objetos de JavaScript}
+
+\begin{lstlisting}
+class JavascriptObject:
+    def __init__(self, prototype=None):
+        self.__dict__['prototype'] = prototype or {}
+
+    def __getattr__(self, item):
+        if item in self.__dict__:
+            return self.__dict__[item]
+        if 'prototype' in self.__dict__ and item in self.__dict__['prototype']:
+            return self.__dict__['prototype'][item]
+        raise AttributeError(f"'{type(self).__name__}' object has no attribute '{item}'")
+
+    def __setattr__(self, key, value):
+        self.__dict__[key] = value
+
+# Ejemplo de uso:
+animal_proto = JavascriptObject()
+animal_proto.speak = lambda self: print(f'{self.name} makes a noise.')
+
+dog_proto = JavascriptObject(animal_proto)
+dog_proto.speak = lambda self: print(f'{self.name} barks.')
+
+dog = JavascriptObject(dog_proto)
+dog.name = 'Rex'
+dog.speak(dog)  # Rex barks.      
+\end{lstlisting}
+
+
 
 \end{document}
