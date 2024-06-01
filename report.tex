@@ -284,19 +284,19 @@ En JavaScript, se puede acceder a las propiedades de un objeto utilizando dos m�
 
 \begin{enumerate}
       \item Notación de Punto: Se usa cuando se conoce el nombre de la propiedad y es un identificador válido.
-            \begin{lstlisting}
-            let person = {
-            name: 'John',
-            age: 30
-            };
-            console.log(person.name); // Output: John      
-            \end{lstlisting}
+\begin{lstlisting}
+let person = {
+name: 'John',
+age: 30
+};
+console.log(person.name); // Output: John      
+\end{lstlisting}
 
       \item Notación de Corchetes: Se usa cuando el nombre de la propiedad es dinámico o no es un identificador válido.
-            \begin{lstlisting}
-            let propertyName = 'age';
-            console.log(person[propertyName]); // Output: 30            
-            \end{lstlisting}
+\begin{lstlisting}
+let propertyName = 'age';
+console.log(person[propertyName]); // Output: 30            
+\end{lstlisting}
 
 \end{enumerate}
 
@@ -306,29 +306,29 @@ Para listar todas las propiedades de un objeto, se pueden utilizar varios métod
 
 \begin{enumerate}
       \item \textbf{for...in Loop}: Recorre todas las propiedades enumerables de un objeto.
-            \begin{lstlisting}
-            for (let key in person) {
-                  console.log(key + ': ' + person[key]);
-            }
-            \end{lstlisting}
+\begin{lstlisting}
+for (let key in person) {
+      console.log(key + ': ' + person[key]);
+}
+\end{lstlisting}
 
       \item \textbf{Object.keys()}: Devuelve un array con las propiedades enumerables propias del objeto.
-            \begin{lstlisting}
-            let keys = Object.keys(person);
-            console.log(keys); // Output: ['name', 'age']
-            \end{lstlisting}
+\begin{lstlisting}
+let keys = Object.keys(person);
+console.log(keys); // Output: ['name', 'age']
+\end{lstlisting}
 
       \item \textbf{Object.values()}: Devuelve un array con los valores de las propiedades enumerables propias del objeto.
-            \begin{lstlisting}
-            let values = Object.values(person);
-            console.log(values); // Output: ['John', 30]
-            \end{lstlisting}
+\begin{lstlisting}
+let values = Object.values(person);
+console.log(values); // Output: ['John', 30]
+\end{lstlisting}
 
       \item \textbf{ Object.entries()}: Devuelve un array de arrays, donde cada sub-array contiene un par clave-valor de las propiedades enumerables propias del objeto.
-            \begin{lstlisting}
-            let entries = Object.entries(person);
-            console.log(entries); // Output: [['name', 'John'], ['age', 30]]
-            \end{lstlisting}
+\begin{lstlisting}
+let entries = Object.entries(person);
+console.log(entries); // Output: [['name', 'John'], ['age', 30]]
+\end{lstlisting}
 \end{enumerate}
 
 
@@ -612,17 +612,31 @@ Desventajas
 \begin{lstlisting}
 class JavascriptObject:
     def __init__(self, prototype=None):
-        self.__dict__['prototype'] = prototype or {}
+        if prototype is not None:
+            self.__dict__['prototype'] = prototype
 
     def __getattr__(self, item):
         if item in self.__dict__:
             return self.__dict__[item]
-        if 'prototype' in self.__dict__ and item in self.__dict__['prototype']:
-            return self.__dict__['prototype'][item]
-        raise AttributeError(f"'{type(self).__name__}' object has no attribute '{item}'")
+        if 'prototype' in self.__dict__:
+            return self.__dict__['prototype'].__getattr__(item)
+        raise AttributeError(
+            f"'{type(self).__name__}' object has no attribute '{item}'")
 
     def __setattr__(self, key, value):
         self.__dict__[key] = value
+
+    def keys(self):
+        proto_keys = self.__dict__['prototype'].keys(
+        ) if 'prototype' in self.__dict__ else []
+        return [k for k in set(list(self.__dict__.keys())+proto_keys) if k != 'prototype']
+
+    def values(self):
+        return [self.__getattr__(k) for k in self.keys()]
+
+    def __iter__(self):
+        return self.keys()
+
 
 # Ejemplo de uso:
 animal_proto = JavascriptObject()
@@ -633,7 +647,8 @@ dog_proto.speak = lambda self: print(f'{self.name} barks.')
 
 dog = JavascriptObject(dog_proto)
 dog.name = 'Rex'
-dog.speak(dog)  # Rex barks.      
+dog.speak(dog)
+print(dog.values())
 \end{lstlisting}
 
 
