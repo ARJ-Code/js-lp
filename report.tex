@@ -171,7 +171,7 @@ el desarrollo de aplicaciones complejas. Estos problemas incluyen:
 
 \subsection{ El Surgimiento de TypeScript}
 
-Para abordar muchos de estos problemas, Microsoft introdujo TypeScript en 2012. TypeScript es un superconjunto de
+Para abordar muchos de estos problemas, Microsoft introdujo TypeScript en 2012. TypeScript es un super conjunto de
 JavaScript que agrega tipos estáticos y otras características avanzadas, con el objetivo de mejorar la productividad
 del desarrollo y la mantenibilidad del código.
 
@@ -185,7 +185,7 @@ del desarrollo y la mantenibilidad del código.
             \end{itemize}
       \item Compatibilidad con JavaScript:
             \begin{itemize}
-                  \item TypeScript es un superconjunto estricto de JavaScript, lo que significa que cualquier código
+                  \item TypeScript es un super conjunto estricto de JavaScript, lo que significa que cualquier código
                         JavaScript válido es también un código TypeScript válido.
                   \item Esto permite a los desarrolladores adoptar TypeScript de manera incremental, comenzando con
                         archivos JavaScript existentes y agregando gradualmente tipos y características de TypeScript.
@@ -194,7 +194,7 @@ del desarrollo y la mantenibilidad del código.
       \item Mejor Herramientas y Soporte para IDE:
             \begin{itemize}
                   \item TypeScript ofrece una integración superior con editores de código y entornos de desarrollo
-                        integrados (IDE), proporcionando autocompletado, refactorización y navegación mejorados.
+                        integrados (IDE), proporcionando auto completado, refactorización y navegación mejorados.
                   \item Las herramientas de desarrollo se benefician del conocimiento del sistema de tipos, lo que
                         facilita la escritura y mantenimiento del código.
             \end{itemize}
@@ -204,7 +204,7 @@ del desarrollo y la mantenibilidad del código.
                   \item TypeScript introduce una sintaxis de clases más familiar para los desarrolladores que provienen
                         de otros lenguajes orientados a objetos, mejorando la legibilidad y el uso de patrones de diseño
                         orientados a objetos.
-                  \item  Soporta herencia, encapsulación y polimorfismo de manera más intuitiva y estructurada.
+                  \item  Soporta herencia, encapsulamiento y polimorfismo de manera más intuitiva y estructurada.
             \end{itemize}
       \item Módulos y ES6+:
             \begin{itemize}
@@ -431,7 +431,7 @@ console.log(child.method()); // 5
 
 \end{lstlisting}
 
-\subsection{Incializar objetos usando las bondades de los prototipos}
+\subsection{Inicializar objetos usando las bondades de los prototipos}
 
 Supongamos que queremos crear varios objetos \textbf{Box} los cuales tendrán una propiedad \textbf{value} y un método
 \textbf{getValue}. Podríamos hacerlo de la siguiente manera:
@@ -609,6 +609,116 @@ Desventajas
                         de prototipos pueden añadir complejidad para los nuevos desarrolladores.
             \end{itemize}
 \end{enumerate}
+\section{Jerarquía haciendo uso de prototipos}
+Al utilizar prototipos, podemos crear una jerarquía de objetos donde cada subclase hereda las propiedades y métodos de su clase base. Esto nos permite modelar relaciones "es un" entre objetos de forma flexible y extensible
+
+\begin{lstlisting}
+// Base class Vehicle
+function Vehicle() {
+  this.wheels = 4;
+  this.engine = true;
+  this.start = function() {
+    console.log("The vehicle has started!");
+  };
+}
+
+// Subclass Car
+function Car() {
+  // Inherits properties and methods from the base class Vehicle
+  Vehicle.call(this);
+  this.doors = 4;
+  this.accelerate = function() {
+    console.log("The car is accelerating!");
+  };
+}
+
+// Subclass Motorcycle
+function Motorcycle() {
+  // Inherits properties and methods from the base class Vehicle
+  Vehicle.call(this);
+  this.wheels = 2;
+  this.helmet = true;
+  this.drive = function() {
+    console.log("The motorcycle is driving!");
+  };
+}
+
+// Subclass Truck
+function Truck() {
+  // Inherits properties and methods from the base class Vehicle
+  Vehicle.call(this);
+  this.wheels = 6;
+  this.trailer = true;
+  this.transport = function() {
+    console.log("The truck is transporting!");
+  };
+}
+
+// Create instances of the subclasses
+const car = new Car();
+const motorcycle = new Motorcycle();
+const truck = new Truck();
+
+// Call methods on the instances
+car.start(); // The vehicle has started!
+car.accelerate(); // The car is accelerating!
+
+motorcycle.start(); // The vehicle has started!
+motorcycle.drive(); // The motorcycle is driving!
+
+truck.start(); // The vehicle has started!
+truck.transport(); // The truck is transporting!
+
+
+\end{lstlisting}
+
+
+
+En este ejemplo, la clase base Vehículo define las propiedades y métodos comunes a todos los vehículos. Las subclases Carro, Moto y Camion heredan de la clase base y añaden sus propias propiedades y métodos específicos.
+
+
+Ahora veremos otro ejemplo de uso de prototipos con un enfoque diferente.
+\begin{lstlisting}
+// Base class Person
+function Person() {
+  this.name = "Juan";
+}
+
+Person.prototype.speak = function() {
+  console.log("Hello!");
+};
+
+// Creating a subclass using Person.prototype
+function Student() {
+  Person.prototype.constructor.call(this); // Invoke the base class constructor
+  this.registrationNumber = "12345";
+}
+
+Student.prototype.study = function() {
+  console.log("I am studying!");
+};
+
+// Create an object of the Person class
+const juan = new Person();
+console.log(juan.name); // Juan
+juan.speak(); // Hello!
+
+// Create an object of the Student class
+const studentJuan = new Student();
+console.log(studentJuan.name); // Juan
+console.log(studentJuan.registrationNumber); // 12345
+studentJuan.speak(); // Hello!
+studentJuan.study(); // I am studying!
+
+\end{lstlisting}
+
+Diferencias clave entre ambos ejemplos de uso:
+\begin{itemize}
+      \item Momento de la asignación: Person.prototype se asigna después de definir la función constructora, mientras que vehicle.call(this) se llama desde dentro del constructor de la subclase.
+      \item Propósito: Person.prototype agrega propiedades y métodos al prototipo del constructor, mientras que vehicle.call(this) invoca al constructor de la clase base.
+      \item Uso: Person.prototype es más común en JavaScript moderno para crear jerarquías de objetos, mientras que vehicle.call(this) se utiliza principalmente en situaciones heredadas o cuando se requiere un control más explícito sobre la invocación del constructor de la clase base.
+
+\end{itemize}
 
 \section{Implementación en Python del modelo de objetos de JavaScript}
 
@@ -841,7 +951,7 @@ console.log(biblioteca.obtenerLibrosPorAutor('Gabriel Garcia Marquez'));
 
 El polimorfismo permite que diferentes objetos respondan de manera distinta 
 a la misma llamada de método, y JavaScript permite modelar este comportamiento
-usando prototiposi constructores
+usando prototipos constructores
 
 \begin{lstlisting}
 function Animal(nombre) {
