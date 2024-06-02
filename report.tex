@@ -1,4 +1,7 @@
 \documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
 \usepackage[hidelinks]{hyperref}
 \usepackage{graphicx}
 \usepackage{titling}
@@ -64,7 +67,7 @@ urlcolor=blue, }
       {\scshape\Huge Lenguajes de Programación\\ Seminario 4 (JavaScript) \par}
       \vfill
 
-      {\Large Juan Carlos Espinoza Delgado C-411 \par}
+      {\Large Juan Carlos Espinosa Delgado C-411 \par}
       {\Large Raudel Alejandro Gómez Molina C-411 \par}
       {\Large Alex Sierra Alcalá C-411 \par}
       \vfill
@@ -651,6 +654,152 @@ dog.speak(dog)
 print(dog.values())
 \end{lstlisting}
 
+\section{JavaScript orientado a objetos}
+
+La programación orientada a objetos consiste en modelar un sistema como una 
+colección de objetos, donde cada objeto representa algún aspecto particular 
+del sistema. Los objetos contienen tanto funciones como datos. 
+Un objeto proporciona una interfaz pública a otro código que desea utilizarlo, 
+pero mantiene su propio estado interno privado; a otras partes del sistema 
+no les importa lo que está sucediendo dentro del objeto. Veamos como se 
+refleja esto en JavaScript.
+
+\subsection{Encapsulamiento}
+
+Los objetos proporcionan una interfaz a otro código que desea utilizarlos, 
+pero mantienen su propio estado interno. El estado interno del objeto permanece 
+privado, lo que significa que solo puede ser accedido por los propios métodos 
+del objeto, no por otros objetos. Mantener el estado interno de un objeto 
+privado y, en general, hacer una clara división entre su interfaz pública y 
+su estado interno privado, se llama encapsulamiento. Esta característica 
+permite al programador cambiar la implementación interna de un objeto sin 
+tener que buscar y actualizar todo el código que lo utiliza. En JavaScript, 
+esto se puede lograr utilizando closures para simular propiedades privadas.
+
+\begin{lstlisting}
+function Persona(nombre, edad) {
+      this.nombre = nombre;
+      let _edad = edad; // Propiedad privada
+      
+      this.getEdad = function() {
+            return _edad;
+      };
+      
+      this.setEdad = function(nuevaEdad) {
+            if (nuevaEdad > 0) {
+                  _edad = nuevaEdad;
+            }
+      };
+      }
+      
+let juan = new Persona("Juan", 30);
+console.log(juan.nombre); // "Juan"
+console.log(juan.getEdad()); // 30
+juan.setEdad(31);
+console.log(juan.getEdad()); // 31
+\end{lstlisting}
+
+\subsection{Herencia}
+
+Los constructores en JavaScript nos proporcionan algo parecido a una 
+definición de clase, permitiéndonos definir la "forma" de un objeto, 
+incluidos los métodos que contiene, en un solo lugar. Pero los prototipos 
+también pueden ser utilizados con este fin. Por ejemplo, si un método se define en 
+la propiedad prototipo de un constructor, entonces todos los objetos creados 
+usando ese constructor obtienen ese método a través de su prototipo, y no 
+necesitamos definirlo en el constructor. Por tanto la cadena de prototipos 
+parece una forma natural de implementar la herencia. Pero vale la pena 
+entender las diferencias entre estas características y los conceptos de 
+POO "clásica" descritos anteriormente.
+
+Primero, en la POO basada en clases, las clases y los objetos son dos 
+conceptos separados, y los objetos siempre se crean como instancias de 
+clases. Además, hay una distinción entre la característica utilizada para 
+definir una clase (la sintaxis de la clase en sí) y la característica 
+utilizada para instanciar un objeto (un constructor). En JavaScript, 
+podemos y a menudo creamos objetos sin ninguna definición de clase 
+separada, ya sea usando una función o un literal de objeto. Esto puede hacer 
+que trabajar con objetos sea mucho más ligero que en la POO clásica.
+
+En segundo lugar, aunque una cadena de prototipos se parece a una jerarquía 
+de herencia y se comporta como tal en algunos aspectos, es diferente en 
+otros. Cuando se instancia una subclase, se crea un solo objeto que combina 
+propiedades definidas en la subclase con propiedades definidas más arriba 
+en la jerarquía. Con el prototipado, cada nivel de la jerarquía está 
+representado por un objeto separado, y están vinculados entre sí a través 
+de la propiedad \_\_proto\_\_. El comportamiento de la cadena de prototipos 
+es menos parecido a la herencia y más a la delegación. La delegación es un 
+patrón de programación donde un objeto, cuando se le pide realizar una 
+tarea, puede realizar la tarea él mismo o pedir a otro objeto (su delegado) 
+que realice la tarea en su nombre. De muchas maneras, la delegación es una 
+forma más flexible de combinar objetos que la herencia 
+(por una cosa, es posible cambiar o reemplazar completamente al delegado en 
+tiempo de ejecución).
+
+Dicho esto, los constructores y prototipos pueden ser utilizados para 
+implementar patrones de POO basada en clases en JavaScript. Pero usarlos 
+directamente para implementar características como la herencia es complicado, 
+por lo que JavaScript proporciona características adicionales, superpuestas 
+al modelo de prototipo, que se relacionan más directamente con los conceptos 
+de POO basada en clases.
+
+\subsection{Polimorfismo}
+
+El polimorfismo permite que diferentes objetos respondan de manera distinta 
+a la misma llamada de método, y JavaScript permite modelar este comportamiento
+usando prototiposi constructores
+
+\begin{lstlisting}
+function Animal(nombre) {
+      this.nombre = nombre;
+}
+      
+Animal.prototype.hablar = function() {
+      console.log(this.nombre + " hace un ruido.");
+};
+
+function Perro(nombre) {
+    Animal.call(this, nombre); // Herencia de propiedades
+}
+
+Perro.prototype = Object.create(Animal.prototype);
+Perro.prototype.constructor = Perro;
+
+Perro.prototype.hablar = function() {
+    console.log(this.nombre + " ladra.");
+};
+
+function Gato(nombre) {
+    Animal.call(this, nombre); // Herencia de propiedades
+}
+
+Gato.prototype = Object.create(Animal.prototype);
+Gato.prototype.constructor = Gato;
+
+Gato.prototype.hablar = function() {
+    console.log(this.nombre + " maulla.");
+};
+
+let animales = [
+    new Perro("Cacharro"),
+    new Gato("Garfield")
+];
+
+animales.forEach(function(animal) {
+    animal.hablar(); // Polimorfismo en accion
+});
+
+// Resultado:
+// "Cacharro ladra."
+// "Garfield maulla."
+
+\end{lstlisting}
+
+\subsection{Conclusiones}
+
+JavaScript es claramente un lenguaje orientado a objetos debido a su 
+capacidad para encapsular datos y métodos, proporcionar abstracción, 
+soportar herencia y permitir polimorfismo.
 
 
 \end{document}
